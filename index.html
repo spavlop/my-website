@@ -1,31 +1,908 @@
 <!DOCTYPE html>
-<meta charset= "UTF-8">
-<html>
+<html lang="en">
 <head>
-<center> <body> NEKTRAIOS </body> </center>
-<title> MIKA TYSON </title>
+    <meta charset="UTF-8">
+    <title>Meowl Origins HQ</title>
+
+    <!-- Google Font (optional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ---------- BODY + BACKGROUND ---------- */
+        body {
+            min-height: 100vh;
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #f8f8ff;
+            overflow-y: scroll;
+
+            /* Animated gradient */
+            background: linear-gradient(-45deg, #0f172a, #111827, #1f2937, #4b5563);
+            background-size: 400% 400%;
+            animation: gradientShift 25s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ---------- MEOWL SCROLLBAR ---------- */
+        body::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: rgba(15,23,42,0.9);
+            border-radius: 999px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #fbbf24, #ec4899, #22c55e);
+            border-radius: 999px;
+            border: 2px solid #020617;
+            box-shadow: 0 0 10px rgba(248,250,252,0.4);
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            filter: brightness(1.2);
+        }
+
+        /* ---------- LAYOUT ---------- */
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 110px 16px 80px;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- HUD BAR ---------- */
+        .hud {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1100px, 100% - 24px);
+            margin: 10px auto 0;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.78);
+            border: 1px solid rgba(148,163,184,0.4);
+            backdrop-filter: blur(18px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            z-index: 40;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hud-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 2px solid #f97316;
+        }
+
+        .hud-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hud-title {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .hud-pill {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.6);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .hud-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34,197,94,0.9);
+        }
+
+        .hud-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+        }
+
+        .hud-stat span:first-child {
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+
+        .hud-stat span:last-child {
+            font-weight: 600;
+        }
+
+        .hud-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.7);
+            background: rgba(15,23,42,0.7);
+            color: #e5e7eb;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        .btn-small.primary {
+            border-color: transparent;
+            background: linear-gradient(90deg, #f97316, #ec4899);
+        }
+
+        .btn-small:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.8);
+            border: 1px solid rgba(148,163,184,0.6);
+            margin-bottom: 12px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: conic-gradient(from 220deg, #fbbf24, #ec4899, #22c55e, #38bdf8, #fbbf24);
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: #d1d5db;
+            margin-bottom: 18px;
+        }
+
+        .hero-meta {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 18px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .btn-main {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(90deg, #f97316, #ec4899);
+            color: #f9fafb;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+        }
+
+        .btn-ghost {
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.7);
+            background: rgba(15,23,42,0.7);
+            color: #e5e7eb;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-ghost span {
+            font-size: 16px;
+        }
+
+        .hero-footnote {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .hero-image-card {
+            position: relative;
+            border-radius: 28px;
+            padding: 12px;
+            background: radial-gradient(circle at top, rgba(248,250,252,0.04), rgba(15,23,42,0.95));
+            border: 1px solid rgba(148,163,184,0.6);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+            overflow: hidden;
+        }
+
+        .hero-image-inner {
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-image-inner img {
+            width: 100%;
+            display: block;
+        }
+
+        .hero-glow {
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 20% 0%, rgba(251,191,36,0.4), transparent 60%),
+                        radial-gradient(circle at 80% 0%, rgba(236,72,153,0.4), transparent 60%);
+            mix-blend-mode: screen;
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 14px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.85);
+            border: 1px solid rgba(148,163,184,0.7);
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-tag span {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #fbbf24;
+            box-shadow: 0 0 10px rgba(251,191,36,0.9);
+        }
+
+        /* ---------- SECTION BLOCKS ---------- */
+        section {
+            margin-bottom: 48px;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #e5e7eb;
+            margin-bottom: 14px;
+        }
+
+        .columns {
+            columns: 2;
+            column-gap: 24px;
+        }
+
+        /* ---------- CARDS ---------- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            padding: 14px 16px 16px;
+            border-radius: 18px;
+            background: rgba(15,23,42,0.86);
+            border: 1px solid rgba(148,163,184,0.5);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+
+        .card p {
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+
+        /* ---------- TABLE ---------- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid rgba(148,163,184,0.5);
+            text-align: left;
+        }
+
+        th {
+            background: rgba(15,23,42,0.9);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(15,23,42,0.7);
+        }
+
+        /* ---------- LOGIN / SIGNUP ---------- */
+        .auth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .auth-card {
+            padding: 18px 18px 20px;
+            border-radius: 22px;
+            background: rgba(15,23,42,0.86);
+            border: 1px solid rgba(148,163,184,0.6);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+        }
+
+        .auth-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .auth-sub {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .field label {
+            font-size: 12px;
+            color: #d1d5db;
+        }
+
+        .field input {
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(148,163,184,0.6);
+            background: rgba(15,23,42,0.8);
+            color: #e5e7eb;
+            font-size: 13px;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 1px rgba(56,189,248,0.7);
+        }
+
+        .auth-button {
+            margin-top: 6px;
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(90deg, #22c55e, #38bdf8);
+            color: #f9fafb;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .auth-small {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        /* ---------- MUSIC WIDGET ---------- */
+        .music-widget {
+            position: fixed;
+            right: 14px;
+            bottom: 16px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            background: rgba(15,23,42,0.88);
+            border: 1px solid rgba(148,163,184,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 11px;
+            z-index: 50;
+        }
+
+        .music-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-title {
+            font-weight: 500;
+        }
+
+        .music-meta {
+            color: #9ca3af;
+        }
+
+        .music-btn {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.8);
+            background: rgba(15,23,42,0.9);
+            color: #e5e7eb;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .music-wave {
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 3px;
+            border-radius: 999px;
+            background: #22c55e;
+            height: 6px;
+            opacity: 0.3;
+        }
+
+        .bar.active {
+            animation: wave 900ms ease-in-out infinite;
+        }
+
+        .bar:nth-child(2) { animation-delay: 120ms; }
+        .bar:nth-child(3) { animation-delay: 240ms; }
+
+        @keyframes wave {
+            0%,100% { height: 6px; opacity: 0.3; }
+            50% { height: 14px; opacity: 1; }
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 768px) {
+            .hud {
+                flex-wrap: wrap;
+                border-radius: 20px;
+            }
+            .hero {
+                grid-template-columns: minmax(0,1fr);
+            }
+            .columns {
+                columns: 1;
+            }
+        }
+    </style>
 </head>
-<center> <h1> GEIA SAS PAIDIA </h1> </center>
-<center> <p> H MIKA EINAI ANERGH </p> </center>
-<a href="https://sites.google.com/view/gelsiteias20202021/αρχική-σελίδα"> ΠΑΤΑ ΓΙΑ ΤΟ ΜΠΟΥΡΔΕΛΟΠΡΟΓΡΑΜΜΑ </a>
-<img src= "help-me-find-the-cat-or-og-picture-from-the-cat-owl-meowl-v0-8xfogblikhgf1.jpg" alt= "Meowl" width="357" height= "351" </img>
-<ol>
- <li> Meowl is beatiful </li>
- <li> Meowl is sexy </li>
- <li> Meowl is OG </li>
- <li> Meowl is my gf </li>
- 
- 
- 
- 
- <table border="2">
-<tr>
-<th> Mythical Queen </th>
-<th> Aura </th>
-<th> How is it combined </th>
- 
-</tr>
-<td> Meowl </td>
-<td> 999 </td>
-<td> Cat + Owl </td>
-</table>
+<body>
+
+<!-- HUD BAR -->
+<div class="hud">
+    <div class="hud-left">
+        <div class="hud-logo">
+            <!-- Same Meowl image; make sure the file is in the repo -->
+            <img src="help-me-find-the-cat-or-og-picture-from-the-cat-owl-meowl-v0-8xfogblikhgf1.jpg" alt="Meowl avatar">
+        </div>
+        <div>
+            <div class="hud-title">MEOWL ORIGINS HUD</div>
+            <div class="hud-pill">
+                <div class="hud-dot"></div>
+                <span>GEIA ΣΑΣ ΠΑΙΔΙΑ · LIVE LOBBY</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hud-stats">
+        <div class="hud-stat">
+            <span>Aura</span>
+            <span id="hud-aura">999</span>
+        </div>
+        <div class="hud-stat">
+            <span>Species</span>
+            <span>Cat × Owl</span>
+        </div>
+        <div class="hud-stat">
+            <span>Online</span>
+            <span id="hud-online">42</span>
+        </div>
+    </div>
+
+    <div class="hud-buttons">
+        <button class="btn-small" onclick="scrollToSection('origins')">Lore</button>
+        <button class="btn-small" onclick="scrollToSection('portal')">Portal</button>
+        <button class="btn-small primary" onclick="scrollToSection('about')">Meet Meowl</button>
+    </div>
+</div>
+
+<div class="wrapper">
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div>
+            <div class="badge">
+                <div class="badge-dot"></div>
+                <span>OG Mythical Companion · Meowl</span>
+            </div>
+
+            <h1 class="hero-title">Welcome to the Meowlverse Control Room.</h1>
+
+            <p class="hero-sub">
+                Part cat, part owl, full chaos and comfort. Meowl isn’t just a meme – it’s a
+                legendary creature with aura <strong>999</strong>, born in late-night chats, cursed images
+                and inside jokes that refused to die.
+            </p>
+
+            <p class="hero-meta">
+                Crafted by NEKTRAIOS · MIKA TYSON universe · status: <strong>ΑΝΕΡΓΗ αλλά πολύ ενεργή στο lore</strong>.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn-main" onclick="scrollToSection('portal')">
+                    Enter Meowl Portal
+                </button>
+                <button class="btn-ghost" onclick="scrollToSection('origins')">
+                    <span>🌀</span>
+                    View Origins
+                </button>
+            </div>
+
+            <div class="hero-footnote">
+                Need the σχολικό πρόγραμμα; click
+                <a href="https://sites.google.com/view/gelsiteias20202021/αρχική-σελίδα" target="_blank">
+                    εδώ για το “μπουρδελοπρόγραμμα”
+                </a>.
+            </div>
+        </div>
+
+        <div class="hero-image-card">
+            <div class="hero-image-inner">
+                <img src="help-me-find-the-cat-or-og-picture-from-the-cat-owl-meowl-v0-8xfogblikhgf1.jpg" alt="Meowl main image">
+                <div class="hero-glow"></div>
+                <div class="hero-tag">
+                    <span></span>
+                    <div>
+                        Mythical Queen Meowl · Aura 999<br>
+                        <small>Verified OG familiar</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORIGINS -->
+    <section id="origins">
+        <h2>Meowl Origins</h2>
+        <p class="section-sub">
+            How a strange cat–owl hybrid escaped from a cursed picture folder and became a whole personality.
+        </p>
+
+        <div class="columns">
+            <p>
+                Meowl started as a single cursed image: a cat with the wisdom stare of an owl and the energy
+                of someone who just drank five energy drinks at 3:00 a.m. It lived quietly on a hard drive
+                called “help-me-find-the-cat-or-og-picture” until one day it was posted and the legend began.
+            </p>
+            <p>
+                From that moment, Meowl became the <strong>Mythical Queen</strong> of late-night Discord calls,
+                school breaks and random memes that only a few people understood. When everything felt boring,
+                Meowl still had aura 999, ready to appear in chats, profile pictures and badly cropped screenshots.
+            </p>
+            <p>
+                Meowl is not just a pet; it’s a full companion: part guardian, part chaos engine and
+                100% OG. No matter how scuffed the day is, Meowl is there with that silent “I know what you did”
+                stare, but still supports you.
+            </p>
+            <p>
+                Official classification: <strong>Cat × Owl = Meowl</strong>. Alignment:
+                chaotic wholesome. Favorite habitat: dark themes, glowing HUDs, lofi playing in the background,
+                and of course… your browser tab.
+            </p>
+        </div>
+    </section>
+
+    <!-- TRAITS / POWERS -->
+    <section id="about">
+        <h2>Stats, Traits & Meowl Lore</h2>
+        <p class="section-sub">The technical breakdown of why Meowl is unbeatable as a familiar.</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-tag">Core Trait</div>
+                <div class="card-title">Mythical Queen</div>
+                <p>
+                    Meowl rules over a tiny but powerful kingdom: your tabs, your memes and your mood.
+                    When Meowl appears, everything gets 23% more dramatic and 77% more funny.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-tag">Aura</div>
+                <div class="card-title">Aura 999</div>
+                <p>
+                    The aura is permanently maxed. No grind required. Anyone who locks eyes with Meowl
+                    instantly gains +5 comfort and +10 chaos in their daily life.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-tag">Origin</div>
+                <div class="card-title">Cat + Owl = Meowl</div>
+                <p>
+                    Cat reflexes, owl vision. Meowl can sense drama before it even appears, and will
+                    stare through your soul while still looking adorable.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-tag">Relationship Status</div>
+                <div class="card-title">Certified OG Companion</div>
+                <p>
+                    Meowl may be your gf, bf, bestie or familiar – labels don’t matter. What matters is
+                    that Meowl is always there, chilling on your HUD while the world lags.
+                </p>
+            </div>
+        </div>
+
+        <!-- OG TABLE, stylized -->
+        <table>
+            <thead>
+            <tr>
+                <th>Mythical Queen</th>
+                <th>Aura</th>
+                <th>How it is combined</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Meowl</td>
+                <td>999</td>
+                <td>Cat + Owl = Meowl (OG)</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- LOGIN / SIGNUP PORTAL -->
+    <section id="portal">
+        <h2>Meowl Portal · Login & Sign Up</h2>
+        <p class="section-sub">
+            Create your Meowl profile or log back into the control room. No real data is sent –
+            it’s all for the vibes on this page.
+        </p>
+
+        <div class="auth-grid">
+            <!-- LOGIN -->
+            <div class="auth-card">
+                <div class="auth-title">Login to Meowl HUD</div>
+                <div class="auth-sub">
+                    Already a Meowl OG? Enter the lobby again.
+                </div>
+
+                <form id="login-form">
+                    <div class="field">
+                        <label for="login-user">Username or email</label>
+                        <input id="login-user" type="text" placeholder="meowl_fan01" required>
+                    </div>
+                    <div class="field">
+                        <label for="login-pass">Password</label>
+                        <input id="login-pass" type="password" placeholder="●●●●●●●●" required>
+                    </div>
+                    <button class="auth-button" type="submit">Enter HUD</button>
+                    <div class="auth-small">
+                        Tip: Any password works here – Meowl trusts you (for now).
+                    </div>
+                </form>
+            </div>
+
+            <!-- SIGN UP -->
+            <div class="auth-card">
+                <div class="auth-title">Create Meowl Account</div>
+                <div class="auth-sub">
+                    Join the tiny but elite Meowlverse and unlock full aura sync.
+                </div>
+
+                <form id="signup-form">
+                    <div class="field">
+                        <label for="sign-name">Display name</label>
+                        <input id="sign-name" type="text" placeholder="Mythical Kitten" required>
+                    </div>
+                    <div class="field">
+                        <label for="sign-email">Email</label>
+                        <input id="sign-email" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="field">
+                        <label for="sign-pass">Password</label>
+                        <input id="sign-pass" type="password" placeholder="choose something magical" required>
+                    </div>
+                    <button class="auth-button" type="submit">Sign Up for Meowlverse</button>
+                    <div class="auth-small">
+                        No real accounts are made. This is a front-end only shrine to Meowl.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- MUSIC WIDGET (LOFI) -->
+<div class="music-widget">
+    <div class="music-row">
+        <div>
+            <div class="music-title">Lofi Chill · Meowl Mix</div>
+            <div class="music-meta">Background vibes for scrolling</div>
+        </div>
+        <div class="music-wave">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+    <button class="music-btn" id="music-toggle">Play</button>
+</div>
+
+<!-- Hidden audio element -->
+<audio id="bg-music" loop>
+    <!-- Easiest option: rename your mp3 in the repo to "lofi.mp3" -->
+    <source src="lofi.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Smooth scroll helper
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
+    // Tiny aura + online stat animations
+    const auraEl = document.getElementById("hud-aura");
+    const onlineEl = document.getElementById("hud-online");
+
+    setInterval(() => {
+        const auraBase = 999;
+        const auraShake = Math.floor(Math.random() * 3); // 0–2
+        auraEl.textContent = auraBase - auraShake;
+
+        const onlineBase = 42;
+        const onlineShake = Math.floor(Math.random() * 10) - 5; // -5–+4
+        onlineEl.textContent = onlineBase + onlineShake;
+    }, 2000);
+
+    // Fake login/sign-up handling (just for fun alerts)
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const user = document.getElementById("login-user").value || "Meowl Guest";
+        alert("Welcome back to the Meowl HUD, " + user + " 🐾");
+    });
+
+    document.getElementById("signup-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("sign-name").value || "New Meowler";
+        alert("Meowl has accepted you, " + name + ". Aura synced ✅");
+    });
+
+    // Music controls
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
+    const bars = document.querySelectorAll(".bar");
+
+    function setBars(active) {
+        bars.forEach(bar => {
+            if (active) {
+                bar.classList.add("active");
+            } else {
+                bar.classList.remove("active");
+            }
+        });
+    }
+
+    toggleBtn.addEventListener("click", async () => {
+        if (music.paused) {
+            try {
+                await music.play();
+                toggleBtn.textContent = "Pause";
+                setBars(true);
+            } catch (err) {
+                alert("Browser blocked autoplay. Click again to start the music.");
+            }
+        } else {
+            music.pause();
+            toggleBtn.textContent = "Play";
+            setBars(false);
+        }
+    });
+</script>
+
+</body>
+</html>
